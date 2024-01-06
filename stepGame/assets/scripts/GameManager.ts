@@ -20,6 +20,12 @@ enum GameState {
 }
 @ccclass("GameManager")
 export class GameManager extends Component {
+    @property({ type: Node })
+    public oneStepBtn: Node | null = null;
+
+    @property({ type: Node })
+    public twoStepBtn: Node | null = null;
+
     @property({ type: Label })
     public stepsLabel: Label | null = null;
 
@@ -59,6 +65,12 @@ export class GameManager extends Component {
                 if (this.startMenu) {
                     this.startMenu.active = false;
                 }
+                if (this.oneStepBtn) {
+                    this.oneStepBtn.active = true;
+                }
+                if (this.twoStepBtn) {
+                    this.twoStepBtn.active = true;
+                }
                 if (this.stepsLabel) {
                     this.stepsLabel.string = "0";
                 }
@@ -78,6 +90,12 @@ export class GameManager extends Component {
     init() {
         if (this.startMenu) {
             this.startMenu.active = true;
+        }
+        if (this.oneStepBtn) {
+            this.oneStepBtn.active = false;
+        }
+        if (this.twoStepBtn) {
+            this.twoStepBtn.active = false;
         }
         this.generateRoad();
         if (this.playerCtrl) {

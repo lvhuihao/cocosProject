@@ -44,18 +44,15 @@ export class PlayerController extends Component {
                 this.node.setPosition(this._curPos);
             }
         }
-
     }
 
     onMouseUp(event: EventMouse) {
         if (event.getButton() === 0) {
             // 按下鼠标左键
-            this.BodyAnim.play("oneStep");
-            this.jumpByStep(1);
+            this.jumpOneStep();
         } else if (event.getButton() === 2) {
             // 按下鼠标右键
-            this.jumpByStep(2);
-            this.BodyAnim.play("twoStep");
+            this.jumpTwoStep()
         }
     }
 
@@ -79,11 +76,20 @@ export class PlayerController extends Component {
         }
     }
 
-    onOnceJumpEnd(){
-        this.node.emit('JumpEnd', this._curMoveIndex);
+    onOnceJumpEnd() {
+        this.node.emit("JumpEnd", this._curMoveIndex);
     }
 
-    reset(){
+    reset() {
         this._curMoveIndex = 0;
+    }
+
+    jumpOneStep() {
+        this.jumpByStep(1);
+        this.BodyAnim.play("oneStep");
+    }
+    jumpTwoStep() {
+        this.jumpByStep(2);
+        this.BodyAnim.play("twoStep");
     }
 }
