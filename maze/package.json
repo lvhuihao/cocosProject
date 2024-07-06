@@ -1,0 +1,11 @@
+{
+  "name": "maze",
+  "uuid": "f1a2393a-9fa4-41b5-99ca-96d86b5014d7",
+  "creator": {
+    "version": "3.8.1"
+  },
+  "type": "module",
+  "dependencies": {
+    "openai": "^4.52.2"
+  }
+}
