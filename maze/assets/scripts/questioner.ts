@@ -10,11 +10,15 @@ export class questioner extends Component {
             this.setQuestion(res)
         })
         this.confirmButton.node.on('click', this.btnClick, this);
+        this.hiddenQuestion();
     }
 
     update(deltaTime: number) {
 
     }
+
+    @property({ type: Boolean })
+    public passQuestion: boolean = false;
 
     @property({ type: Label })
     private questionLabel: Label | null = null
@@ -25,9 +29,29 @@ export class questioner extends Component {
     @property({ type: Button })
     private confirmButton: Button | null = null
 
+    public randamPosition: [number, number] | null = [5, 7]
+
+    public clearQuestion() {
+        cleanPrompt();
+    }
+
+    public questionReset() {
+        this.randamPosition = [5, 7]
+    }
+
     setQuestion(content: string) {
         try {
             let result = JSON.parse(content);
+            if (result.score === 10) {
+                this.passQuestion = true;
+                setTimeout(() => {
+                    this.hiddenQuestion()
+                    this.randamPosition = null
+                    getCompelite().then(res => {
+                        this.setQuestion(res)
+                    })
+                }, 1000)
+            }
             let scoreText = typeof result.score !== 'undefined' ? (result.score === 10 ? "" : `得分：${result.score}`) : "";
             let reasonText = result.reason || "";
             let contentText = result.content || "";
@@ -41,6 +65,14 @@ export class questioner extends Component {
 
     public getAnswer() {
         return this.answerLabel.string;
+    }
+
+    public showQuestion() {
+        return this.node.active = true;
+    }
+
+    public hiddenQuestion() {
+        return this.node.active = false;
     }
 
     public btnClick() {

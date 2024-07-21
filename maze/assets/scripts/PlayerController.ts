@@ -1,6 +1,8 @@
 import { _decorator, Component, EventKeyboard, Input, input, KeyCode, Vec3 } from 'cc';
 import { Maze } from './Maze';
-const { ccclass } = _decorator;
+import { questioner } from './questioner'
+
+const { ccclass, property } = _decorator;
 
 @ccclass('PlayerController')
 export class PlayerController extends Component {
@@ -34,6 +36,9 @@ export class PlayerController extends Component {
 
     private _moveDirection: Vec3 = new Vec3();
     private _rotationY: number = 0; // 用于控制视角的旋转
+
+    @property({ type: questioner })
+    private questioner: questioner | null = null
 
     onKeyUp(event: EventKeyboard) {
         switch (event.keyCode) {
@@ -133,6 +138,10 @@ export class PlayerController extends Component {
     }
 
     canMove(targetPosition: Vec3) {
+        if (Math.round(targetPosition.z + 4.5) === this.questioner?.randamPosition?.[0] && Math.round(targetPosition.x + 4.5) === this.questioner?.randamPosition?.[1]) {
+            this.questioner.showQuestion()
+            return false
+        }
         return Maze[Math.round(targetPosition.z + 4.5)][Math.round(targetPosition.x + 4.5)] !== '#'
     }
 

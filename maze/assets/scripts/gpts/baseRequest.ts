@@ -1,4 +1,4 @@
-// import fetch from 'node-fetch'; // 如果你在Node.js环境中使用fetch，需要先安装并引入node-fetch
+import fetch from 'node-fetch'; // 如果你在Node.js环境中使用fetch，需要先安装并引入node-fetch
 
 /**
  * @description 封装gpt请求

@@ -1,4 +1,3 @@
-import { ChatCompletionMessageParam } from "openai/resources";
 
 const instruct = `
 你现在扮演一名初中语文考官的角色，你的任务是给学生出一道古诗词相关题目并判断学生回答的对错，根据学生回答情况进行打分并给出打分依据，最高分10分，最低分0分。
@@ -125,7 +124,7 @@ assistent:
 }
 `
 
-export const prompt: ChatCompletionMessageParam = {
+export const prompt= {
     "role": 'system',
     "content": content
 }
